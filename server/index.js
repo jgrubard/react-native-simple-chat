@@ -6,11 +6,10 @@ const { conn, sync } = require('./db');
 app.use('/api', require('./routes'));
 app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
 
+const port = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000;
+const server = app.listen(port, () => console.log(`** Listening on Port ${port} **`));
 
-const server = app.listen(PORT, () => console.log(`** Listening on Port ${PORT} **`))
-
-conn.sync()
+conn.sync();
 
 // module.exports = server;
