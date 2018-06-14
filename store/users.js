@@ -8,15 +8,9 @@ const getUsers = users => ({ type: GET_USERS, users });
 export const getUsersFromServer = () => {
   return dispatch => {
     return axios.get(url + '/api/users')
-      .then(result => {
-        // console.log('result.data', result.data)
-        return result.data
-      })
-      .then(users => {
-        // console.log('users', users)
-        dispatch(getUsers(users))
-      })
-      // .catch(err => console.error(err))
+      .then(result => result.data)
+      .then(users => dispatch(getUsers(users)))
+      .catch(err => console.error(err))
   }
 }
 

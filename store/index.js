@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import users from './users';
-import user from './user';
+import user from './sessions';
 
 const reducer = combineReducers({ users, user });
 
@@ -12,4 +12,4 @@ const store = createStore(reducer, middleware);
 export default store;
 
 export * from './users';
-export * from './user';
+export * from './sessions';

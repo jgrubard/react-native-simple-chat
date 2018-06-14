@@ -13,9 +13,7 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest",
-    "start:dev": "DATABASE_URL=postgres://localhost/simple_chat_db nodemon server",
-    "seed": "node ./server/db/seed"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-expo"
@@ -25,6 +23,7 @@
     "body-parser": "^1.18.3",
     "expo": "^27.0.1",
     "express": "^4.16.3",
+    "jwt-simple": "^0.5.1",
     "pg": "^7.4.3",
     "react": "16.3.1",
     "react-native": "~0.55.2",
@@ -35,6 +34,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.37.10",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   }
 }

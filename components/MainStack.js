@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Text } from 'react-native-elements';
-// import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
-import { getUsersFromServer } from '../store';
+import { getUsersFromServer, exchangeTokenForUser } from '../store';
 import { AppLoading } from 'expo';
 
 import Home from './Home';
-// import Chat from './Chat';
+import UserList from './UserList';
+import Chat from './Chat';
 
-// const TabNavigator = createStackNavigator({
-//   Home: Home,
-//   Chat: Chat
-// },{
-//   headerMode: 'screen',
-//   initialRouteName: 'Home'
-// })
+const TabNavigator = createStackNavigator({
+  Home: Home,
+  Users: UserList,
+  Chat: Chat
+},{
+  headerMode: 'screen',
+  initialRouteName: 'Home'
+})
 
 class MainStack extends Component {
   constructor() {
@@ -26,9 +28,10 @@ class MainStack extends Component {
   }
 
   loadData() {
-    const { getUsers } = this.props;
+    const { getUsers, getUser } = this.props;
     return Promise.all([
-      getUsers()
+      getUsers(),
+      getUser()
     ])
   }
 
@@ -49,7 +52,7 @@ class MainStack extends Component {
       );
     }
     return (
-      <Home />
+      <TabNavigator />
     );
   }
 }
@@ -58,7 +61,15 @@ const mapState = null;
 
 const mapDispatch = dispatch => {
   return {
-    getUsers: () => dispatch(getUsersFromServer())
+    getUsers: () => dispatch(getUsersFromServer()),
+    getUser: () => {
+      AsyncStorage.getItem('token')
+        .then(token => {
+          if(token) {
+            dispatch(exchangeTokenForUser(token))
+          }
+        })
+    }
   }
 }
 
